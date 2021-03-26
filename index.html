@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sustained Attention Test</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- <button type="button" onclick="mulai(300,1000)" id="mulai">Mulai</button> -->
+    <!-- Form Mulai -->
+    <div class="shape"></div>
+    <div class="big-container">
+      <div class="container">
+        <h4 class="title">Test Fokus Berkelanjutan</h4>
+        <div class="input-container">
+          <form name="mulai">
+            <label for="nama">Nama</label>
+            <!-- <input type="number" id="milimeter" placeholder="Milimeter" oninput="milimeter(parseFloat(this.value))"> -->
+            <input type="text" name="nama" id="nama" placeholder="Masukkan nama anda..." required />
+            <br />
+            <label>Pilih kondisi anda saat ini :</label><br />
+            <input type="radio" id="bugar" name="kondisi" value="bugar" />
+            <label for="bugar">Bugar</label>
+            <input type="radio" id="letih" name="kondisi" value="letih" />
+            <label for="letih">Letih</label><br />
+            <button type="button" id="btn-lanjut">Mulai</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form hasil -->
+    <div class="Hbig-container">
+      <div class="Hcontainer">
+        <h4 class="title">Test Fokus Berkelanjutan</h4>
+        <div class="Hinput-container">
+          <form name="submit-to-google-sheet">
+            <label for="nama">Nama</label>
+            <!-- <input type="number" id="milimeter" placeholder="Milimeter" oninput="milimeter(parseFloat(this.value))"> -->
+            <input type="text" name="Hnama" id="Hnama" disabled />
+            <br />
+            <label>Kondisi anda : </label>
+            <input type="text" id="Hkondisi" name="Hkondisi" disabled />
+            <label for="Hskor-berhasil">Skor berhasil :</label>
+            <input type="text" name="Hskor-berhasil" id="Hskor-berhasil" />
+            <label for="Hskor-gagal">Skor gagal :</label>
+            <input type="text" name="Hskor-gagal" id="Hskor-gagal" />
+            <button type="submit" id="btn-submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter-container">
+      <div class="counter">
+        <div class="nums">
+          <span class="in">4</span>
+          <span>3</span>
+          <span>2</span>
+          <span>1</span>
+        </div>
+        <h4>Klik Lingkaran</h4>
+      </div>
+      <div class="final">
+        <h1>GO</h1>
+        <!-- <button id="replay">replay</button> -->
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

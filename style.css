@@ -1,0 +1,352 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+}
+
+button {
+  display: block;
+  margin: auto;
+}
+
+.shape {
+  margin: 150px auto;
+  flex-direction: column;
+}
+
+.circle {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: salmon;
+}
+
+.square {
+  height: 200px;
+  width: 200px;
+  background-color: lightblue;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 75px solid transparent;
+  border-right: 75px solid transparent;
+  border-bottom: 125px solid lightgreen;
+}
+
+.triangle-sided {
+  height: 0;
+  width: 0;
+  border-top: 150px solid lightgray;
+  border-right: 150px solid transparent;
+}
+
+.rectangle {
+  width: 250px;
+  height: 100px;
+  background-color: lightpink;
+}
+
+.oval {
+  width: 250px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: lightseagreen;
+}
+
+.diamond-square {
+  width: 150px;
+  height: 150px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: #00e0d7;
+}
+
+.pentagon {
+  position: relative;
+  width: 64px;
+  box-sizing: content-box;
+  border-width: 60px 28px 0;
+  border-style: solid;
+  border-color: blue transparent;
+}
+
+.pentagon::after {
+  content: '';
+  position: relative;
+  height: 0;
+  width: 0;
+  top: -121px;
+  left: -28px;
+  border-width: 0 60px 45px;
+  border-style: solid;
+  border-color: transparent transparent blue;
+}
+
+.hexagon {
+  width: 100px;
+  height: 55px;
+  background: red;
+  position: relative;
+}
+
+.hexagon::before {
+  content: '';
+  position: relative;
+  top: -42px;
+  width: 0;
+  left: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 25px solid red;
+}
+
+.hexagon::after {
+  content: '';
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  height: 0;
+  width: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 25px solid red;
+}
+
+.jajar-genjang {
+  height: 75px;
+  width: 150px;
+  background-color: aqua;
+  -webkit-transform: skew(25deg);
+  -moz-transform: skew(25deg);
+  -o-transform: skew(25deg);
+}
+
+.trapesium {
+  width: 100px;
+  height: 0;
+  border-bottom: 100px solid rgb(224, 224, 53);
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+}
+
+.cone {
+  width: 0;
+  height: 0;
+  border-top: 100px solid rgb(224, 53, 104);
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50px;
+  border-radius: 50%;
+}
+
+.heart {
+  width: 100px;
+  height: 100px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  background-color: red;
+}
+
+.heart::before {
+  position: absolute;
+  content: '';
+  background-color: red;
+  height: 60%;
+  width: 100%;
+  top: -59%;
+  border-radius: 75px 75px 0 0;
+}
+
+.heart::after {
+  position: absolute;
+  content: '';
+  background-color: red;
+  height: 60%;
+  width: 100%;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  top: 20%;
+  right: 79%;
+  border-radius: 75px 75px 0 0;
+}
+
+.title {
+  text-align: center;
+}
+
+.big-container {
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(161, 196, 202);
+  padding: 20px;
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  padding: 32px;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.08), -8px -8px 16px rgba(0, 0, 0, 0.1) inset;
+}
+
+.input-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container input {
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+  border: 1px solid rgb(190, 190, 190);
+  box-shadow: none !important;
+  outline: 0;
+}
+
+/* counter */
+.counter-container {
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
+.counter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.counter.hide {
+  transform: translate(-50%, -50%) scale(0);
+  animation: hide 0.2s ease-out;
+}
+
+@keyframes hide {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+.final {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.final.show {
+  transform: translate(-50%, -50%) scale(1);
+  animation: show 0.3s ease-in;
+}
+
+@keyframes show {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  80% {
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.nums {
+  color: #3498db;
+  position: relative;
+  font-size: 50px;
+  overflow: hidden;
+  width: 250px;
+  height: 50px;
+}
+
+.nums span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(120deg);
+  transform-origin: bottom center;
+}
+
+.nums span.in {
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: goIn 0.5s ease-in-out;
+}
+
+.nums span.out {
+  animation: goOut 0.5s ease-in-out;
+}
+
+@keyframes goIn {
+  0% {
+    transform: translate(-50%, -50%) rotate(120deg);
+  }
+  30% {
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+
+  60% {
+    transform: translate(-50%, -50%) rotate(10deg);
+  }
+
+  90%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+@keyframes goOut {
+  0%,
+  30% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  60% {
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-120deg);
+  }
+}
+
+h4 {
+  font-size: 20px;
+  margin: 5px;
+  text-transform: uppercase;
+}
