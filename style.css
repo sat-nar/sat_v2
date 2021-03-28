@@ -2,6 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -349,4 +356,84 @@ h4 {
   font-size: 20px;
   margin: 5px;
   text-transform: uppercase;
+}
+
+#hasil {
+  display: none;
+}
+.nama {
+  display: block;
+  text-align: left;
+  /* color: #3599ff;
+  font-size: 0.875em; */
+}
+
+.input-container form .text-input {
+  overflow: hidden;
+  margin-bottom: 0.875em;
+}
+
+.input-container form input[type='text'] {
+  width: 100%;
+  padding-left: 0;
+  background: none;
+  color: black;
+  font-size: 1.2em;
+  font-weight: 400;
+  border: none;
+  border-bottom: 1px solid #999;
+  /*Some sibling magic happens */
+}
+.input-container form input[type='text']:focus + .separator {
+  transform: scaleX(1) translateY(-2px);
+  opacity: 1;
+}
+/* #btn-lanjut {
+  color: white;
+  background: #3599ff;
+  padding: 5px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 10px;
+} */
+
+.separator {
+  height: 3px;
+  width: 100%;
+  background: #68b3ff;
+  display: block;
+  transform: scaleX(0) translateY(-2px);
+  transform-origin: 50%;
+  opacity: 0;
+  transition: all 0.15s linear;
+}
+
+:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
+#form-awal button[type='button'],
+#form-hasil button[type='submit'] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: rgb(161, 196, 202);
+  color: #fff;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#form-awal button[type='button']:hover,
+#form-hasil button[type='submit']:hover {
+  background: rgb(126, 171, 179);
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#fotm-awal button[type='button']:active,
+#form-hasil button[type='submit']:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }

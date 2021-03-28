@@ -2,8 +2,14 @@ const shape = document.querySelector('.shape');
 const bigContainer = document.querySelector('.big-container');
 const btnLanjut = document.querySelector('#btn-lanjut');
 const counterContainer = document.querySelector('.counter-container');
+const formHasil = document.querySelector('#hasil');
 const valNama = document.querySelector('#nama');
+const valKondisi = document.querySelector('#kondisi');
 const HNama = document.querySelector('#Hnama');
+const HKondisi = document.querySelector('#Hkondisi');
+let HSkorBenar = document.querySelector('#Hskor-berhasil');
+let HSkorSalah = document.querySelector('#Hskor-gagal');
+
 
 let selesai = false, skorBenar = 0, skorSalah = 0;
 
@@ -78,49 +84,75 @@ function tampilShape() {
     console.log(randomShape);
 }
 
+function myFunction(kondisi) {
+    HKondisi.value = kondisi;
+    console.log(HKondisi.value);
+  }
+
 function mulai() {
     selesai = false;
     skorBenar = 0;
     skorBenar = 0;
     tampilShape();
     setTimeout(() => {
-        selesai = true
+        selesai = true;
+        // record();
         HNama.value = valNama.value;
+        HSkorBenar.value = skorBenar;
+        HSkorSalah.value = skorSalah;
+
         console.log(HNama.value);
+        console.log(HKondisi.value);
+        console.log("total benar " + skorBenar);
+        console.log("total salah " + skorSalah);
+
+        formHasil.style.display = "flex";
     }, 10000)
     
 }
 
 // Google Spreadsheet
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzqY3afgrGeQzLdYu3qMLBALBDg32GLExsPenIz/exec'
-      const form = document.forms['submit-to-google-sheet']
-      const sendBtn = document.querySelector('.btn-send')
-      const loadingBtn = document.querySelector('.btn-loading')
-      const myAlert = document.querySelector('.my-alert')
 
+function record() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzqY3afgrGeQzLdYu3qMLBALBDg32GLExsPenIz/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const sendBtn = document.querySelector('.btn-send')
+    const loadingBtn = document.querySelector('.btn-loading')
+    const myAlert = document.querySelector('.my-alert')
+    HNama.value = valNama.value;
+    HSkorBenar = skorBenar;
+    HSkorSalah = skorSalah;
+    console.log(HNama.value);
+    console.log(HSkorBenar);
+    console.log(HSkorSalah);
+
+    
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
       
+      // tamplikan tombol loading , hilangkan tombol kirim
+      loadingBtn.classList.toggle('d-none')
+      sendBtn.classList.toggle('d-none')
 
-      form.addEventListener('submit', e => {
-        e.preventDefault()
-        
-        // tamplikan tombol loading , hilangkan tombol kirim
-        loadingBtn.classList.toggle('d-none')
-        sendBtn.classList.toggle('d-none')
-
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-          .then(response => {
-            if (response.ok == true ) {
-              // tamplikan tombol kirim , hilangkan tombol loading
-              loadingBtn.classList.toggle('d-none')
-              sendBtn.classList.toggle('d-none')
-              // ketika tombol submit diklik
-              myAlert.classList.toggle('d-none')
-              // reset form
-              form.reset()
-            }
-            })
-          .catch(error => console.error('Error!', error.message))
-      })
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          if (response.ok == true ) {
+            // tamplikan tombol kirim , hilangkan tombol loading
+            loadingBtn.classList.toggle('d-none')
+            sendBtn.classList.toggle('d-none')
+            // ketika tombol submit diklik
+            myAlert.classList.toggle('d-none')
+            // reset form
+            form.reset()
+          }
+          })
+        .catch(error => console.error('Error!', error.message))
+    })
+    
+    
+}
+// akhir function record
 
         btnLanjut.addEventListener('click', function(){
           bigContainer.style.display = "none";

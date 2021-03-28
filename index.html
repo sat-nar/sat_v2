@@ -18,16 +18,21 @@
       <div class="container">
         <h4 class="title">Test Fokus Berkelanjutan</h4>
         <div class="input-container">
-          <form name="mulai">
-            <label for="nama">Nama</label>
-            <!-- <input type="number" id="milimeter" placeholder="Milimeter" oninput="milimeter(parseFloat(this.value))"> -->
-            <input type="text" name="nama" id="nama" placeholder="Masukkan nama anda..." required />
-            <br />
+          <form autocomplete="off" action="#" id="form-awal">
+            <div class="text-input">
+              <label class="nama" for="nama">Nama</label>
+              <!-- <input type="number" id="milimeter" placeholder="Milimeter" oninput="milimeter(parseFloat(this.value))"> -->
+              <input type="text" id="nama" placeholder="" required />
+              <span class="separator"> </span>
+            </div>
+
             <label>Pilih kondisi anda saat ini :</label><br />
-            <input type="radio" id="bugar" name="kondisi" value="bugar" />
+
+            <input type="radio" id="kondisi" name="Mkondisi" value="bugar" onclick="myFunction(this.value)" />
             <label for="bugar">Bugar</label>
-            <input type="radio" id="letih" name="kondisi" value="letih" />
-            <label for="letih">Letih</label><br />
+            <input type="radio" id="kondisi" name="Mkondisi" value="letih" onclick="myFunction(this.value)" />
+            <label for="letih">Letih</label>
+            <div style="height: 20px"></div>
             <button type="button" id="btn-lanjut">Mulai</button>
           </form>
         </div>
@@ -35,21 +40,20 @@
     </div>
 
     <!-- Form hasil -->
-    <div class="Hbig-container">
-      <div class="Hcontainer">
-        <h4 class="title">Test Fokus Berkelanjutan</h4>
-        <div class="Hinput-container">
-          <form name="submit-to-google-sheet">
+    <div class="big-container" id="hasil">
+      <div class="container">
+        <h4 class="title">Hasil</h4>
+        <div class="input-container">
+          <form name="submit-to-google-sheet" id="form-hasil">
             <label for="nama">Nama</label>
             <!-- <input type="number" id="milimeter" placeholder="Milimeter" oninput="milimeter(parseFloat(this.value))"> -->
-            <input type="text" name="Hnama" id="Hnama" disabled />
-            <br />
+            <input type="text" name="nama" id="Hnama" disabled /><br />
             <label>Kondisi anda : </label>
-            <input type="text" id="Hkondisi" name="Hkondisi" disabled />
+            <input type="text" id="Hkondisi" name="kondisi" disabled /><br />
             <label for="Hskor-berhasil">Skor berhasil :</label>
-            <input type="text" name="Hskor-berhasil" id="Hskor-berhasil" />
+            <input type="text" name="skor-berhasil" id="Hskor-berhasil" disabled /><br />
             <label for="Hskor-gagal">Skor gagal :</label>
-            <input type="text" name="Hskor-gagal" id="Hskor-gagal" />
+            <input type="text" name="skor-gagal" id="Hskor-gagal" disabled /><br />
             <button type="submit" id="btn-submit">Submit</button>
           </form>
         </div>
