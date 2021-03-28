@@ -6,6 +6,12 @@ const formHasil = document.querySelector('#hasil');
 const valNama = document.querySelector('#nama');
 const valKondisi = document.querySelector('#kondisi');
 const HNama = document.querySelector('#Hnama');
+// Counter
+const nums = document.querySelectorAll('.nums span');
+const counter = document.querySelector('.counter');
+const finalMessage = document.querySelector('.final');
+// const repl = document.getElementById('replay');
+
 const HKondisi = document.querySelector('#Hkondisi');
 let HSkorBenar = document.querySelector('#Hskor-berhasil');
 let HSkorSalah = document.querySelector('#Hskor-gagal');
@@ -156,20 +162,13 @@ function record() {
 
         btnLanjut.addEventListener('click', function(){
           bigContainer.style.display = "none";
+          runAnimation();
+          document.body.appendChild(counterContainer);
           setTimeout(() => {
-              document.body.appendChild(counterContainer);
               mulai()
-          }, 5000);
+          }, 4000);
           
         });
-
-        // Counter
-        const nums = document.querySelectorAll('.nums span');
-        const counter = document.querySelector('.counter');
-        const finalMessage = document.querySelector('.final');
-        // const repl = document.getElementById('replay');
-
-        runAnimation();
 
         function resetDOM() {
             counter.classList.remove('hide');
