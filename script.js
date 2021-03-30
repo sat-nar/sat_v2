@@ -1,59 +1,86 @@
 const shape = document.querySelector('.shape');
 const bigContainer = document.querySelector('.big-container');
 const btnLanjut = document.querySelector('#btn-lanjut');
+const btnSubmit = document.querySelector('#btn-submit');
 const counterContainer = document.querySelector('.counter-container');
 const formHasil = document.querySelector('#hasil');
 const valNama = document.querySelector('#nama');
 const valKondisi = document.querySelector('#kondisi');
-const HNama = document.querySelector('#Hnama');
+const valWaktu = document.querySelector('#waktu');
+
 // Counter
 const nums = document.querySelectorAll('.nums span');
 const counter = document.querySelector('.counter');
 const finalMessage = document.querySelector('.final');
 // const repl = document.getElementById('replay');
-
+const HNama = document.querySelector('#Hnama');
 const HKondisi = document.querySelector('#Hkondisi');
-let HSkorBenar = document.querySelector('#Hskor-berhasil');
-let HSkorSalah = document.querySelector('#Hskor-gagal');
+const HSkorBenar = document.querySelector('#Hskor-berhasil');
+const HSkorSalah = document.querySelector('#Hskor-gagal');
+const HWaktu = document.querySelector('#HWaktu');
 
 
-let selesai = false, skorBenar = 0, skorSalah = 0;
+let selesai = false, skorBenar = 0, skorSalah = 0, randomSebelumnya;
 
-function randomWaktu(min ,max) {
+randomWaktu = (min, max) => {
     return Math.round(Math.random() * (max - min) + min );
 }
 
-function pilihShape(tipe) {
+pilihShape = (tipe) => {
     shape.classList.add(tipe);
-    const rWaktu = randomWaktu(500,2000);
-
-    setTimeout(() => {
-        shape.classList.remove(tipe);
-        if (!selesai) {
-            tampilShape()}
-    }, rWaktu);
+    if (valKondisi.value === "bugar"){
+        setTimeout(() => {
+            shape.classList.remove(tipe);
+            if (!selesai) {
+                tampilShape()}
+        }, randomWaktu(750,1000));
+    }
+    else if (valKondisi.value === "letih"){
+        setTimeout(() => {
+            shape.classList.remove(tipe);
+            if (!selesai) {
+                tampilShape()}
+        }, randomWaktu(1000,1500));
+    }
+    HKondisi.value = valKondisi.value;
 }
 
-function tampilShape() {
-    const randomShape = Math.floor(Math.random() * 5);
+selectionFunc = bentuk => {
+    if ( bentuk === 'circle' ) {
+        skorBenar = skorBenar + 1;
+        shape.classList.remove(bentuk);
+
+        console.log("ini skor benar " + skorBenar);
+    }
+    else {
+        skorSalah = skorSalah + 1;
+        shape.classList.remove(bentuk);
+        console.log("ini skor salah " + skorSalah);
+    }
+
+    HSkorBenar.value = skorBenar;
+    HSkorSalah.value = skorSalah;
+    console.log("total benar " + HSkorBenar.value);
+    console.log("total salah " + HSkorSalah.value);
+}
+
+function randomShape()  {
+    let randomShape = Math.floor(Math.random() * 5);
+
+    if ( randomShape == randomSebelumnya ){
+        randomShape = Math.floor(Math.random() * 5);
+    } 
+    randomSebelumnya = randomShape
+    return randomShape;
+}
+
+
+tampilShape = () => {
     
-    switch (randomShape) {
+    
+    switch (randomShape()) {
         case 0:
             pilihShape('circle');
-            shape.addEventListener('click' , function() {
-                const i = shape.classList.item(1);
-                if (i === "circle"){ // masih belum selesai
-                    skorBenar = skorBenar + 1;
-                    shape.classList.remove('circle');
-                    console.log("ini skor benar " + skorBenar);
-                }
-                else {
-                    skorSalah = skorSalah + 1;
-                    shape.classList.remove(i);
-                    console.log("ini skor salah " + skorSalah);
-                    
-                }
-            });
             break;
         case 1:
             pilihShape('rectangle');
@@ -87,101 +114,84 @@ function tampilShape() {
     }
 
     
-    console.log(randomShape);
+    console.log(randomShape());
 }
 
-function myFunction(kondisi) {
+myFunction = (kondisi) => {
     HKondisi.value = kondisi;
-    console.log(HKondisi.value);
   }
 
-function mulai() {
+mulai = (waktu) => {
     selesai = false;
     skorBenar = 0;
     skorBenar = 0;
     tampilShape();
     setTimeout(() => {
         selesai = true;
-        // record();
         HNama.value = valNama.value;
-        HSkorBenar.value = skorBenar;
-        HSkorSalah.value = skorSalah;
+        HWaktu.value = valWaktu.value / 1000;
+        // HSkorBenar.value = skorBenar;
+        // HSkorSalah.value = skorSalah;
 
         console.log(HNama.value);
         console.log(HKondisi.value);
-        console.log("total benar " + skorBenar);
-        console.log("total salah " + skorSalah);
+        console.log(HWaktu.value);
+        
 
         formHasil.style.display = "flex";
-    }, 10000)
+    }, waktu)
     
 }
 
 // Google Spreadsheet
 
-function record() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzqY3afgrGeQzLdYu3qMLBALBDg32GLExsPenIz/exec'
+    //  data = https://docs.google.com/spreadsheets/d/1BRkI38PD9SnUkRuRPxiMNIql2SPzSnsmh_P08iua4d4/edit
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwiZad4JPHba3YJfqBlN-ySfuncKv-p30yHiZFhBvyTz1iMFzk/exec'
     const form = document.forms['submit-to-google-sheet']
-    const sendBtn = document.querySelector('.btn-send')
-    const loadingBtn = document.querySelector('.btn-loading')
-    const myAlert = document.querySelector('.my-alert')
-    HNama.value = valNama.value;
-    HSkorBenar = skorBenar;
-    HSkorSalah = skorSalah;
-    console.log(HNama.value);
-    console.log(HSkorBenar);
-    console.log(HSkorSalah);
-
-    
+    const formAwal = document.forms['form-awal'];
 
     form.addEventListener('submit', e => {
       e.preventDefault()
-      
-      // tamplikan tombol loading , hilangkan tombol kirim
-      loadingBtn.classList.toggle('d-none')
-      sendBtn.classList.toggle('d-none')
-
       fetch(scriptURL, { method: 'POST', body: new FormData(form)})
         .then(response => {
           if (response.ok == true ) {
-            // tamplikan tombol kirim , hilangkan tombol loading
-            loadingBtn.classList.toggle('d-none')
-            sendBtn.classList.toggle('d-none')
-            // ketika tombol submit diklik
-            myAlert.classList.toggle('d-none')
-            // reset form
-            form.reset()
+              console.log(response);
+              // reset form
+              form.reset()
+              formAwal.reset();
+              formHasil.style.display = "none";
+              bigContainer.style.display = "flex";
+
           }
           })
         .catch(error => console.error('Error!', error.message))
     })
-    
-    
-}
-// akhir function record
-
+        
         btnLanjut.addEventListener('click', function(){
-          bigContainer.style.display = "none";
-          runAnimation();
+            setTimeout(() => {
+                bigContainer.style.display = "none";
+                runAnimation();
+            }, 400);
+            
           document.body.appendChild(counterContainer);
           setTimeout(() => {
-              mulai()
+              mulai(valWaktu.value);
           }, 4000);
           
         });
 
-        function resetDOM() {
-            counter.classList.remove('hide');
-            finalMessage.classList.remove('show');
+        // function resetDOM() {
+        //     counter.classList.remove('hide');
+        //     finalMessage.classList.remove('show');
             
-            nums.forEach(num => {
-                num.classList.value = '';
-            });
+        //     nums.forEach(num => {
+        //         num.classList.value = '';
+        //     });
 
-            nums[0].classList.add('in');
-        }
+        //     nums[0].classList.add('in');
+        // }
 
-        function runAnimation() {
+        runAnimation = () => {
             nums.forEach((num, idx) => {
                 const penultimate = nums.length - 1;
                 num.addEventListener('animationend', (e) => {

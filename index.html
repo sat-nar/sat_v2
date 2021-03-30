@@ -13,12 +13,12 @@
   <body>
     <!-- <button type="button" onclick="mulai(300,1000)" id="mulai">Mulai</button> -->
     <!-- Form Mulai -->
-    <div class="shape"></div>
+    <div class="shape" onclick="selectionFunc(this.classList.item(1))"></div>
     <div class="big-container">
       <div class="container">
         <h4 class="title">Test Fokus Berkelanjutan</h4>
         <div class="input-container">
-          <form autocomplete="off" action="#" id="form-awal">
+          <form autocomplete="off" action="#" id="form-awal" name="form-awal  ">
             <div class="text-input">
               <label class="nama" for="nama">Nama</label>
               <!-- <input type="number" id="milimeter" placeholder="Milimeter" oninput="milimeter(parseFloat(this.value))"> -->
@@ -28,12 +28,28 @@
 
             <label>Pilih kondisi anda saat ini :</label><br />
 
-            <input type="radio" id="kondisi" name="Mkondisi" value="bugar" onclick="myFunction(this.value)" />
+            <input type="radio" id="kondisi" name="Mkondisi" value="bugar" onclick="myFunction(this.value)" checked />
             <label for="bugar">Bugar</label>
             <input type="radio" id="kondisi" name="Mkondisi" value="letih" onclick="myFunction(this.value)" />
-            <label for="letih">Letih</label>
+            <label for="letih">Letih</label><br /><br />
+            <label for="waktu">Pilih Waktu: </label>
+            <select name="waktu" id="waktu" required>
+              <option value="10000">-- pilih --</option>
+              <option value="10000">10 detik</option>
+              <option value="20000">20 detik</option>
+              <option value="30000">30 detik</option>
+              <option value="60000">1 menit</option>
+              <option value="90000">1 menit 30 detik</option>
+              <option value="120000">2 menit</option>
+              <option value="150000">2 menit 30 detik</option>
+              <option value="18 0000">3 menit</option>
+            </select>
+
             <div style="height: 20px"></div>
-            <button type="button" id="btn-lanjut">Mulai</button>
+
+            <button class="Button" type="button" id="btn-lanjut">
+              <span>Mulai</span>
+            </button>
           </form>
         </div>
       </div>
@@ -45,15 +61,16 @@
         <h4 class="title">Hasil</h4>
         <div class="input-container">
           <form name="submit-to-google-sheet" id="form-hasil">
-            <label for="nama">Nama</label>
-            <!-- <input type="number" id="milimeter" placeholder="Milimeter" oninput="milimeter(parseFloat(this.value))"> -->
-            <input type="text" name="nama" id="Hnama" disabled /><br />
+            <label for="Hnama">Nama</label>
+            <input type="text" name="nama" id="Hnama" readonly /><br />
             <label>Kondisi anda : </label>
-            <input type="text" id="Hkondisi" name="kondisi" disabled /><br />
+            <input type="text" id="Hkondisi" name="kondisi" readonly /><br />
+            <label>Waktu (detik) : </label>
+            <input type="text" id="HWaktu" name="waktu" /><br />
             <label for="Hskor-berhasil">Skor berhasil :</label>
-            <input type="text" name="skor-berhasil" id="Hskor-berhasil" disabled /><br />
+            <input type="text" name="skor_berhasil" id="Hskor-berhasil" readonly /><br />
             <label for="Hskor-gagal">Skor gagal :</label>
-            <input type="text" name="skor-gagal" id="Hskor-gagal" disabled /><br />
+            <input type="text" name="skor_gagal" id="Hskor-gagal" readonly /><br /><br />
             <button type="submit" id="btn-submit">Submit</button>
           </form>
         </div>
