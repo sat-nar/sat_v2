@@ -19,6 +19,11 @@ const HSkorBenar = document.querySelector('#Hskor-berhasil');
 const HSkorSalah = document.querySelector('#Hskor-gagal');
 const HWaktu = document.querySelector('#HWaktu');
 
+const alert_success = document.querySelector(".alert_success");
+const alert_error = document.querySelector(".alert_error");
+const alert_wrapper = document.querySelector(".alert_wrapper");
+const alert_wrapper1 = document.querySelector(".alert_wrapper1");
+const close_btns = document.querySelectorAll(".close");
 
 let selesai = false, skorBenar = 0, skorSalah = 0, randomSebelumnya;
 
@@ -45,11 +50,17 @@ pilihShape = (tipe) => {
     HKondisi.value = valKondisi.value;
 }
 
+    let keyboard;
+
+window.addEventListener('keydown', function (e) {
+    keyboard = e.keyCode || e.which
+})
+
 selectionFunc = bentuk => {
-    if ( bentuk === 'circle' ) {
+    if ( bentuk === 'circle' || keyboard == 32){
+        console.log(keyboard);
         skorBenar = skorBenar + 1;
         shape.classList.remove(bentuk);
-
         console.log("ini skor benar " + skorBenar);
     }
     else {
@@ -131,11 +142,11 @@ mulai = (waktu) => {
         HNama.value = valNama.value;
         HWaktu.value = valWaktu.value / 1000;
         // HSkorBenar.value = skorBenar;
-        // HSkorSalah.value = skorSalah;
+        // // HSkorSalah.value = skorSalah;
 
-        console.log(HNama.value);
-        console.log(HKondisi.value);
-        console.log(HWaktu.value);
+        // console.log(HNama.value);
+        // console.log(HKondisi.value);
+        // console.log(HWaktu.value);
         
 
         formHasil.style.display = "flex";
@@ -154,14 +165,17 @@ mulai = (waktu) => {
       e.preventDefault()
       fetch(scriptURL, { method: 'POST', body: new FormData(form)})
         .then(response => {
-          if (response.ok == true ) {
-              console.log(response);
+          if (response.ok ) {
               // reset form
               form.reset()
               formAwal.reset();
               formHasil.style.display = "none";
               bigContainer.style.display = "flex";
-
+              alert_wrapper.classList.add("active");
+              alert_success.style.top = "50%";
+          } else if (!response.ok){
+            alert_wrapper1.classList.add("active");
+            alert_error.style.top = "50%";
           }
           })
         .catch(error => console.error('Error!', error.message))
@@ -216,5 +230,31 @@ mulai = (waktu) => {
         //     resetDOM();
         //     runAnimation();
         // });
-             
       
+        // alert
+       
+
+        // btns.forEach(function(btn, btn_index){
+        //     btn.addEventListener("click", function(){
+        //         alert_wrapper.classList.add("active");
+
+        //         alert_items.forEach(function(alert_item, alert_index){
+        //             if(btn_index == alert_index){
+        //                 alert_item.style.top = "50%";
+        //             }
+        //             else{
+        //                 alert_item.style.top = "-100%";
+        //             }
+        //         })
+        //     })
+        // })
+
+        close_btns.forEach(function(close, close_index){
+            close.addEventListener("click", function(){
+                alert_wrapper.classList.remove("active");
+    
+                alert_items.forEach(function(alert_item, alert_index){
+                alert_item.style.top = "-100%";
+                })
+            })
+        })

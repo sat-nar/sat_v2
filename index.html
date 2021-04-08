@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
   </head>
 
   <body>
     <!-- <button type="button" onclick="mulai(300,1000)" id="mulai">Mulai</button> -->
     <!-- Form Mulai -->
     <div class="shape" onclick="selectionFunc(this.classList.item(1))"></div>
+
     <div class="big-container">
       <div class="container">
         <h4 class="title">Test Fokus Berkelanjutan</h4>
@@ -85,7 +87,7 @@
           <span>1</span>
           <!-- <span>1</span> -->
         </div>
-        <h4>Klik Lingkaran</h4>
+        <h4>Klik/Sentuh Lingkaran</h4>
       </div>
       <div class="final">
         <h1>GO</h1>
@@ -93,6 +95,48 @@
       </div>
     </div>
 
+    <!-- alert -->
+    <div class="alert_wrapper">
+      <div class="alert_backdrop"></div>
+      <div class="alert_inner">
+        <div class="alert_item alert_success">
+          <div class="icon data_icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="data">
+            <p class="title">
+              <span>Success:</span>
+              Data berhasil disimpan
+            </p>
+            <!-- <p class="sub"></p> -->
+          </div>
+          <div class="icon close">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert_wrapper1">
+      <div class="alert_backdrop"></div>
+      <div class="alert_inner">
+        <div class="alert_item alert_error">
+          <div class="icon data_icon">
+            <i class="fas fa-bomb"></i>
+          </div>
+          <div class="data">
+            <p class="title">
+              <span>Error:</span>
+              Data gagal disimpan
+            </p>
+            <p class="sub"></p>
+          </div>
+          <div class="icon close">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
