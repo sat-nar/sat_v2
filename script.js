@@ -6,7 +6,8 @@ const counterContainer = document.querySelector('.counter-container');
 const formHasil = document.querySelector('#hasil');
 const valNama = document.querySelector('#nama');
 const valKondisi = document.querySelector('#kondisi');
-const valWaktu = document.querySelector('#waktu');
+const valWaktuMenit = document.querySelector('#waktuMenit');
+const valWaktuDetik = document.querySelector('#waktuDetik');
 
 // Counter
 const nums = document.querySelectorAll('.nums span');
@@ -19,242 +20,281 @@ const HSkorBenar = document.querySelector('#Hskor-berhasil');
 const HSkorSalah = document.querySelector('#Hskor-gagal');
 const HWaktu = document.querySelector('#HWaktu');
 
-const alert_success = document.querySelector(".alert_success");
-const alert_error = document.querySelector(".alert_error");
-const alert_wrapper = document.querySelector(".alert_wrapper");
-const alert_wrapper1 = document.querySelector(".alert_wrapper1");
-const close_btns = document.querySelectorAll(".close");
+const div = document.getElementById('shape');
+const labelInfo = document.getElementById('info');
 
-let selesai = false, skorBenar = 0, skorSalah = 0, randomSebelumnya;
+let selesai = false,
+  skorBenar = 0,
+  skorSalah = 0,
+  jmlLingkaranTampil = 0,
+  randomSebelumnya;
 
-randomWaktu = (min, max) => {
-    return Math.round(Math.random() * (max - min) + min );
+const getDeviceType = () => {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    return 'tablet';
+  }
+  if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+    return 'mobile';
+  }
+  return 'desktop';
+};
+
+if (getDeviceType() === 'desktop') {
+  labelInfo.innerHTML = 'Tekan tombol space atau Klik </br> ketika gambar LINGKARAN muncul!';
+} else if (getDeviceType() === 'mobile' || getDeviceType() === 'tablet') {
+  labelInfo.innerHTML = 'Sentuh Gambar Lingkaran!';
+} else {
+  labelInfo.innerHTML = 'Tekan tombol space atau Klik atau sentuh </br> ketika gambar LINGKARAN muncul!';
 }
+
+randomWaktu = (min, max) => Math.round(Math.random() * (max - min) + min);
 
 pilihShape = (tipe) => {
-    shape.classList.add(tipe);
-    if (valKondisi.value === "bugar"){
-        setTimeout(() => {
-            shape.classList.remove(tipe);
-            if (!selesai) {
-                tampilShape()}
-        }, randomWaktu(750,1000));
+  shape.classList.add(tipe);
+
+  setTimeout(() => {
+    shape.classList.remove(tipe);
+    if (!selesai) {
+      tampilShape();
     }
-    else if (valKondisi.value === "letih"){
-        setTimeout(() => {
-            shape.classList.remove(tipe);
-            if (!selesai) {
-                tampilShape()}
-        }, randomWaktu(1000,1500));
-    }
-    HKondisi.value = valKondisi.value;
-}
+  }, randomWaktu(750, 1500));
+};
 
-    let keyboard;
-
-window.addEventListener('keydown', function (e) {
-    keyboard = e.keyCode || e.which
-})
-
-selectionFunc = bentuk => {
-    if ( bentuk === 'circle' || keyboard == 32){
-        console.log(keyboard);
-        skorBenar = skorBenar + 1;
-        shape.classList.remove(bentuk);
-        console.log("ini skor benar " + skorBenar);
-    }
-    else {
-        skorSalah = skorSalah + 1;
-        shape.classList.remove(bentuk);
-        console.log("ini skor salah " + skorSalah);
-    }
-
-    HSkorBenar.value = skorBenar;
-    HSkorSalah.value = skorSalah;
-    console.log("total benar " + HSkorBenar.value);
-    console.log("total salah " + HSkorSalah.value);
-}
-
-function randomShape()  {
-    let randomShape = Math.floor(Math.random() * 5);
-
-    if ( randomShape == randomSebelumnya ){
-        randomShape = Math.floor(Math.random() * 5);
-    } 
-    randomSebelumnya = randomShape
-    return randomShape;
-}
-
-
-tampilShape = () => {
-    
-    
-    switch (randomShape()) {
-        case 0:
-            pilihShape('circle');
-            break;
-        case 1:
-            pilihShape('rectangle');
-            break;
-        case 2:
-            pilihShape('triangle');
-            break;
-        case 3:
-            pilihShape('heart');
-            break;
-        case 4:
-            pilihShape('oval');
-            break;
-        // case 5:
-        //     pilihShape('trapesium');
-        //     break;
-        // case 6:
-        //     pilihShape('jajar-genjang');
-        //     break;
-        // case 7:
-        //     pilihShape('cone');
-        //     break;
-        // case 8:
-        //     pilihShape('pentagon');
-        //     break;
-        // case 9:
-        //     pilihShape('diamond-square');
-        //     break;
-            default:
-                break;
-    }
-
-    
-    console.log(randomShape());
-}
-
-myFunction = (kondisi) => {
-    HKondisi.value = kondisi;
+selectionFunc = (bentuk) => {
+  if (bentuk === 'circle') {
+    skorBenar = skorBenar + 1;
+    shape.classList.remove(bentuk);
+  } else {
+    skorSalah = skorSalah + 1;
+    shape.classList.remove(bentuk);
   }
+};
 
-mulai = (waktu) => {
-    selesai = false;
-    skorBenar = 0;
-    skorBenar = 0;
-    tampilShape();
-    setTimeout(() => {
-        selesai = true;
-        HNama.value = valNama.value;
-        HWaktu.value = valWaktu.value / 1000;
-        // HSkorBenar.value = skorBenar;
-        // // HSkorSalah.value = skorSalah;
+keyboardFunc = (e, bentuk) => {
+  if (bentuk === 'circle' && e.key === ' ') {
+    skorBenar = skorBenar + 1;
+    div.classList.remove(bentuk);
+  } else {
+    skorSalah = skorSalah + 1;
+    div.classList.remove(bentuk);
+  }
+};
 
-        // console.log(HNama.value);
-        // console.log(HKondisi.value);
-        // console.log(HWaktu.value);
-        
+function randomShape() {
+  let randomShape = Math.floor(Math.random() * 5);
 
-        formHasil.style.display = "flex";
-    }, waktu)
-    
+  if (randomShape == randomSebelumnya) {
+    randomShape = Math.floor(Math.random() * 5);
+  }
+  randomSebelumnya = randomShape;
+  return randomShape;
+}
+
+function tampilShape() {
+  switch (randomShape()) {
+    case 0:
+      pilihShape('circle');
+      jmlLingkaranTampil++;
+      break;
+    case 1:
+      pilihShape('rectangle');
+      break;
+    case 2:
+      pilihShape('triangle');
+      break;
+    case 3:
+      pilihShape('heart');
+      break;
+    case 4:
+      pilihShape('oval');
+      break;
+    // case 5:
+    //     pilihShape('trapesium');
+    //     break;
+    // case 6:
+    //     pilihShape('jajar-genjang');
+    //     break;
+    // case 7:
+    //     pilihShape('cone');
+    //     break;
+    // case 8:
+    //     pilihShape('pentagon');
+    //     break;
+    // case 9:
+    //     pilihShape('diamond-square');
+    //     break;
+    default:
+      pilihShape('circle');
+      break;
+  }
 }
 
 // Google Spreadsheet
 
-    //  data = https://docs.google.com/spreadsheets/d/1BRkI38PD9SnUkRuRPxiMNIql2SPzSnsmh_P08iua4d4/edit
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwiZad4JPHba3YJfqBlN-ySfuncKv-p30yHiZFhBvyTz1iMFzk/exec'
-    const form = document.forms['submit-to-google-sheet']
-    const formAwal = document.forms['form-awal'];
+//  data = https://docs.google.com/spreadsheets/d/1BRkI38PD9SnUkRuRPxiMNIql2SPzSnsmh_P08iua4d4/edit
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwiZad4JPHba3YJfqBlN-ySfuncKv-p30yHiZFhBvyTz1iMFzk/exec';
+const form = document.forms['submit-to-google-sheet'];
+const formAwal = document.forms['form-awal'];
 
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => {
-          if (response.ok ) {
-              // reset form
-              form.reset()
-              formAwal.reset();
-              formHasil.style.display = "none";
-              bigContainer.style.display = "flex";
-              alert_wrapper.classList.add("active");
-              alert_success.style.top = "50%";
-          } else if (!response.ok){
-            alert_wrapper1.classList.add("active");
-            alert_error.style.top = "50%";
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+    .then((response) => {
+      if (response.ok) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Data Berhasil disubmit',
+          icon: 'success',
+          confirmButtonText: 'Cool',
+        }).then((r) => {
+          if (r.isConfirmed) {
+            window.location.reload();
           }
-          })
-        .catch(error => console.error('Error!', error.message))
-    })
-        
-        btnLanjut.addEventListener('click', function(){
-            setTimeout(() => {
-                bigContainer.style.display = "none";
-                runAnimation();
-            }, 400);
-            
-          document.body.appendChild(counterContainer);
-          setTimeout(() => {
-              mulai(valWaktu.value);
-          }, 4000);
-          
         });
+      } else if (!response.ok) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Data Gagal disubmit',
+          icon: 'error',
+          confirmButtonText: 'Cool',
+        });
+      }
+    })
+    .catch((error) => console.error('Error!', error.message));
+});
 
-        // function resetDOM() {
-        //     counter.classList.remove('hide');
-        //     finalMessage.classList.remove('show');
-            
-        //     nums.forEach(num => {
-        //         num.classList.value = '';
-        //     });
+// jalan pertama
 
-        //     nums[0].classList.add('in');
-        // }
+btnLanjut.addEventListener('click', function () {
+  if (!valNama.value) {
+    Swal.fire({
+      title: 'Oopss!',
+      text: 'Tolong isi nama',
+      icon: 'error',
+      confirmButtonText: 'Ok',
+    });
+    return;
+  }
 
-        runAnimation = () => {
-            nums.forEach((num, idx) => {
-                const penultimate = nums.length - 1;
-                num.addEventListener('animationend', (e) => {
-                    if(e.animationName === 'goIn' && idx !== penultimate){
-                        num.classList.remove('in');
-                        num.classList.add('out');
-                    } else if (e.animationName === 'goOut' && num.nextElementSibling){
-                        num.nextElementSibling.classList.add('in');
-                    } else {
-                        counter.classList.add('hide');
-                        finalMessage.classList.add('show');
-                        setTimeout(() => {
-                            counterContainer.style.display = 'none';
-                        }, 1000)
-                        
-                    }
-                });
-            });
-        }
+  let totalWaktu = valWaktuMenit.value * 60000 + valWaktuDetik.value * 1000;
+  HKondisi.value = valKondisi.value;
 
-        // repl.addEventListener('click', () => {
-        //     resetDOM();
-        //     runAnimation();
-        // });
-      
-        // alert
-       
+  setTimeout(() => {
+    bigContainer.style.display = 'none';
+    runAnimation();
+  }, 400);
 
-        // btns.forEach(function(btn, btn_index){
-        //     btn.addEventListener("click", function(){
-        //         alert_wrapper.classList.add("active");
+  document.body.appendChild(counterContainer);
+  setTimeout(() => {
+    mulai(totalWaktu);
+  }, 4000);
+});
 
-        //         alert_items.forEach(function(alert_item, alert_index){
-        //             if(btn_index == alert_index){
-        //                 alert_item.style.top = "50%";
-        //             }
-        //             else{
-        //                 alert_item.style.top = "-100%";
-        //             }
-        //         })
-        //     })
-        // })
+function alert(kondisi, gambar, pesan) {
+  Swal.fire({
+    title: `Selamat! Anda dalam kondisi ${kondisi}`,
+    text: `${pesan}`,
+    imageUrl: `img/${gambar}.png`,
+    imageWidth: 300,
+    imageHeight: 300,
+    imageAlt: 'Custom image',
+    confirmButtonText: 'Detail',
+  });
+}
 
-        close_btns.forEach(function(close, close_index){
-            close.addEventListener("click", function(){
-                alert_wrapper.classList.remove("active");
-    
-                alert_items.forEach(function(alert_item, alert_index){
-                alert_item.style.top = "-100%";
-                })
-            })
-        })
+// jalan kedua
+
+mulai = (waktu) => {
+  selesai = false;
+  skorBenar = 0;
+  skorSalah = 0;
+  jmlLingkaranTampil = 0;
+
+  HNama.value = valNama.value;
+  HWaktu.value = waktu / 1000;
+
+  if (!selesai) {
+    tampilShape();
+    div.focus();
+  }
+
+  setTimeout(() => {
+    HSkorBenar.value = skorBenar;
+    HSkorSalah.value = skorSalah;
+    selesai = true;
+
+    let persentaseBenar = (parseInt(HSkorBenar.value) / jmlLingkaranTampil) * 100;
+
+    // bugar
+    if (HKondisi.value === 'bugar') {
+      // benar banyak
+      if (persentaseBenar >= 70) {
+        alert('Bugar', 'healthy', 'Anda dapat melanjutkan aktivitas');
+        // benar sedikit
+      } else if (persentaseBenar < 70) {
+        alert('Letih', 'letih', 'Jaga Kondisi anda');
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Silahkan test ulang!',
+          confirmButtonText: 'ulang',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      }
+    }
+
+    // letih
+    else if (HKondisi.value === 'letih') {
+      // benar banyak
+      if (persentaseBenar >= 70) {
+        alert('Bugar', 'healthy', 'Anda masih bisa melanjutkan aktivitas');
+        // benar sedikit
+      } else if (persentaseBenar < 70) {
+        alert('Letih', 'letih', 'Jaga kondisi, anda benar-benar letih');
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Silahkan test ulang!',
+          confirmButtonText: 'ulang',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      }
+    }
+
+    // durasi lama, benar banyak
+    // durasi lama, benar sedikit
+    // durasi sebentar, benar banyak
+    // durasi sebentar, benar sedikit
+
+    formHasil.style.display = 'flex';
+  }, waktu);
+};
+
+runAnimation = () => {
+  nums.forEach((num, idx) => {
+    const penultimate = nums.length - 1;
+    num.addEventListener('animationend', (e) => {
+      if (e.animationName === 'goIn' && idx !== penultimate) {
+        num.classList.remove('in');
+        num.classList.add('out');
+      } else if (e.animationName === 'goOut' && num.nextElementSibling) {
+        num.nextElementSibling.classList.add('in');
+      } else {
+        counter.classList.add('hide');
+        finalMessage.classList.add('show');
+        setTimeout(() => {
+          counterContainer.style.display = 'none';
+        }, 1000);
+      }
+    });
+  });
+};
