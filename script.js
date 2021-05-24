@@ -58,7 +58,7 @@ pilihShape = (tipe) => {
     if (!selesai) {
       tampilShape();
     }
-  }, randomWaktu(750, 1500));
+  }, randomWaktu(500, 1500));
 };
 
 selectionFunc = (bentuk) => {
@@ -223,8 +223,8 @@ mulai = (waktu) => {
     HSkorBenar.value = skorBenar;
     HSkorSalah.value = skorSalah;
     selesai = true;
-
-    let persentaseBenar = (parseInt(HSkorBenar.value) / jmlLingkaranTampil) * 100;
+    let totalBenar = parseInt(HSkorBenar.value) - parseInt(HSkorSalah.value);
+    let persentaseBenar = (totalBenar / jmlLingkaranTampil) * 100;
 
     // bugar
     if (HKondisi.value === 'bugar') {
