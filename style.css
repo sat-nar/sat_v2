@@ -12,13 +12,22 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.shape {
+  /* margin: 300px auto; */
+  /* position: relative; */
+  position: fixed;
+  margin: 40vh 42%;
+  /* margin: auto; */
+  /* position: fixed; */
+}
+
 #shape {
   outline: none;
 }
-
+/* 
 body {
   margin: auto 45%;
-}
+} */
 
 #btn-submit {
   transform: scale(1.05);
@@ -95,12 +104,6 @@ body {
 button {
   display: block;
   margin: auto;
-}
-
-.shape {
-  margin: 300px auto;
-  /* position: relative; */
-  position: fixed;
 }
 
 .circle {
@@ -331,6 +334,8 @@ button {
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
   text-align: center;
 }
 
@@ -338,10 +343,14 @@ button {
   transform: translate(-50%, -50%) scale(0);
   animation: hide 0.2s ease-out;
   -webkit-transform: translate(-50%, -50%) scale(0);
+  -o-transform: translate(-50%, -50%) scale(0);
+  -moz-transform: translate(-50%, -50%) scale(0);
   -webkit-animation: hide 0.2s ease-out;
+  -o-animation: hide 0.2s ease-out;
+  -moz-animation: hide 0.2s ease-out;
 }
 
-@keyframes hide {
+@-webkit-keyframes hide {
   0% {
     -webkit-transform: translate(-50%, -50%) scale(1);
     transform: translate(-50%, -50%) scale(1);
@@ -368,7 +377,7 @@ button {
   -webkit-animation: show 0.3s ease-in;
 }
 
-@keyframes show {
+@-webkit-keyframes show {
   0% {
     -webkit-transform: translate(-50%, -50%) scale(0);
   }
@@ -385,8 +394,10 @@ button {
 .nums {
   color: #3498db;
   position: relative;
+  margin: auto;
   font-size: 50px;
   overflow: hidden;
+  -webkit-overflow: hidden;
   width: 250px;
   height: 50px;
 }
@@ -413,7 +424,7 @@ button {
   animation: goOut 0.5s ease-in-out;
 }
 
-@keyframes goIn {
+@-webkit-keyframes goIn {
   0% {
     -webkit-transform: translate(-50%, -50%) rotate(120deg);
   }
@@ -431,7 +442,7 @@ button {
   }
 }
 
-@keyframes goOut {
+@-webkit-keyframes goOut {
   0%,
   30% {
     -webkit-transform: translate(-50%, -50%) rotate(0deg);
@@ -450,6 +461,7 @@ h4 {
   font-size: 20px;
   margin: 5px;
   text-transform: uppercase;
+  -webkit-text-transform: uppercase;
 }
 
 #hasil {

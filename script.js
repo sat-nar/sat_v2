@@ -20,14 +20,17 @@ const HSkorBenar = document.querySelector('#Hskor-berhasil');
 const HSkorSalah = document.querySelector('#Hskor-gagal');
 const HWaktu = document.querySelector('#HWaktu');
 
-const div = document.getElementById('shape');
+const div = document.querySelector('#shape');
 const labelInfo = document.getElementById('info');
-
+// var d = new Date();
 let selesai = false,
   skorBenar = 0,
   skorSalah = 0,
   jmlLingkaranTampil = 0,
-  randomSebelumnya;
+  jmlDiatas850 = 0,
+  randomSebelumnya,
+  waktuMulai,
+  waktuAkhir;
 
 const getDeviceType = () => {
   const ua = navigator.userAgent;
@@ -41,11 +44,11 @@ const getDeviceType = () => {
 };
 
 if (getDeviceType() === 'desktop') {
-  labelInfo.innerHTML = 'Tekan tombol space atau Klik </br> ketika gambar LINGKARAN muncul!';
+  labelInfo.innerHTML = 'Tekan tombol spasi / klik gambar LINGKARAN!';
 } else if (getDeviceType() === 'mobile' || getDeviceType() === 'tablet') {
   labelInfo.innerHTML = 'Sentuh Gambar Lingkaran!';
 } else {
-  labelInfo.innerHTML = 'Tekan tombol space atau Klik atau sentuh </br> ketika gambar LINGKARAN muncul!';
+  labelInfo.innerHTML = 'Tekan tombol space / Klik / sentuh  ketika gambar LINGKARAN muncul!';
 }
 
 randomWaktu = (min, max) => Math.round(Math.random() * (max - min) + min);
@@ -58,13 +61,20 @@ pilihShape = (tipe) => {
     if (!selesai) {
       tampilShape();
     }
-  }, randomWaktu(500, 1500));
+  }, randomWaktu(850, 2000));
 };
 
 selectionFunc = (bentuk) => {
   if (bentuk === 'circle') {
     skorBenar = skorBenar + 1;
     shape.classList.remove(bentuk);
+    // waktuAkhir = d.getMilliseconds();
+    // let waktuTotal = waktuAkhir - waktuMulai;
+    // if (waktuTotal > 850) {
+    //   console.log(waktuTotal);
+    // }
+    // console.log(waktuAkhir);
+    // console.log(waktuTotal);
   } else {
     skorSalah = skorSalah + 1;
     shape.classList.remove(bentuk);
@@ -74,10 +84,15 @@ selectionFunc = (bentuk) => {
 keyboardFunc = (e, bentuk) => {
   if (bentuk === 'circle' && e.key === ' ') {
     skorBenar = skorBenar + 1;
-    div.classList.remove(bentuk);
+    shape.classList.remove(bentuk);
+    // waktuAkhir = d.getMilliseconds();
+    // let waktuTotal = waktuAkhir - waktuMulai;
+    // if (waktuTotal > 850) {
+    //   console.log(waktuTotal);
+    // }
   } else {
     skorSalah = skorSalah + 1;
-    div.classList.remove(bentuk);
+    shape.classList.remove(bentuk);
   }
 };
 
@@ -96,6 +111,8 @@ function tampilShape() {
     case 0:
       pilihShape('circle');
       jmlLingkaranTampil++;
+      // waktuMulai = d.getMilliseconds();
+      // console.log(waktuMulai);
       break;
     case 1:
       pilihShape('rectangle');
@@ -128,6 +145,29 @@ function tampilShape() {
       pilihShape('circle');
       break;
   }
+  // if (div.classList.item(1) === 'circle') {
+  //   function timeStart() {
+  //     clearInterval(timer);
+  //     timer = setInterval(() => {
+  //       millisecond += 10;
+
+  //       let dateTimer = new Date(millisecond);
+  //       if (dateTimer.getUTCMilliseconds() > 849 && dateTimer.getUTCMilliseconds() < 851) {
+  //         // if (dateTimer.getUTCMilliseconds() === 850) {
+  //         console.log(dateTimer.getUTCMilliseconds());
+  //         jmlDiatas850 += 1;
+  //         // }
+  //       }
+  //     }, 10);
+  //   }
+  //   timeStart();
+  // } else {
+  //   function timeReset() {
+  //     setInterval(timer);
+  //     millisecond = 0;
+  //   }
+  //   timeReset();
+  // }
 }
 
 // Google Spreadsheet
@@ -225,7 +265,6 @@ mulai = (waktu) => {
     selesai = true;
     let totalBenar = parseInt(HSkorBenar.value) - parseInt(HSkorSalah.value);
     let persentaseBenar = (totalBenar / jmlLingkaranTampil) * 100;
-
     // bugar
     if (HKondisi.value === 'bugar') {
       // benar banyak
