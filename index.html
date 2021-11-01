@@ -13,10 +13,11 @@
   </head>
 
   <body>
+    <audio id="audio" src="img/click.wav"></audio>
     <!-- Form Mulai -->
     <!-- -->
-    <div id="shape" class="shape" onclick="selectionFunc(this.classList.item(1))" tabindex="0" onkeydown="keyboardFunc(event,this.classList.item(1))"></div>
-
+    <div id="shape" class="shape" tabindex="0" onkeyup="keyboardFunc(event,this.classList.item(1))" onclick="selectionFunc(this.classList.item(1))"></div>
+    <!--  -->
     <div class="big-container">
       <div class="container">
         <h4 class="title">Test Fokus Berkelanjutan</h4>
@@ -38,10 +39,8 @@
             <label for="letih">Letih</label><br />
             <i class="far fa-clock"></i>
             <label for="waktu">Waktu Tes : </label>
-            <input id="waktuMenit" type="number" min="0" max="20" step="1" value="0" />
+            <input id="waktuMenit" type="number" min="0" max="20" step="1" value="1" />
             <label type="text"> menit</label>
-            <input id="waktuDetik" type="number" min="5" max="59" step="1" value="59" />
-            <label type="text"> detik</label>
             <div style="height: 20px"></div>
 
             <label for="bentuk"></label>
@@ -73,7 +72,9 @@
             <input type="text" name="skor_berhasil" id="Hskor-berhasil" readonly /><br />
             <i class="far fa-times-circle"></i>
             <label for="Hskor-gagal">Skor gagal :</label>
-            <input type="text" name="skor_gagal" id="Hskor-gagal" readonly /><br /><br />
+            <input type="text" name="skor_gagal" id="Hskor-gagal" readonly /><br />
+            <label for="H850">Jumlah respon diatas 850ms :</label>
+            <input type="text" name="skor_850" id="H850" readonly /><br /><br />
             <button type="submit" id="btn-submit">Submit</button>
           </form>
         </div>
