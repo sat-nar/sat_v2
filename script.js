@@ -19,6 +19,9 @@ const HSkorBenar = document.querySelector('#Hskor-berhasil');
 const HSkorSalah = document.querySelector('#Hskor-gagal');
 const HWaktu = document.querySelector('#HWaktu');
 const H850 = document.querySelector('#H850');
+const HSkorMiss = document.querySelector('#Hskor-miss');
+const HTampil = document.querySelector('#Htampil');
+const HGambarTampil = document.querySelector('#Hgambar-tampil');
 
 const div = document.querySelector('#shape');
 const labelInfo = document.getElementById('info');
@@ -26,7 +29,9 @@ const labelInfo = document.getElementById('info');
 let selesai = false,
   skorBenar = 0,
   skorSalah = 0,
+  skorMiss = 0,
   jmlLingkaranTampil = 0,
+  jmlGambarTampil = 0,
   jmlDiatas850 = 0,
   randomSebelumnya = 0,
   berjalan = false,
@@ -57,21 +62,26 @@ if (getDeviceType() === 'desktop') {
 randomWaktu = (min, max) => Math.round(Math.random() * (max - min) + min);
 
 pilihShape = (tipe) => {
+  let temp = randomWaktu(1000, 2000);
   occurTime = Date.now();
   shape.classList.add(tipe);
+
   setTimeout(() => {
     shape.classList.remove(tipe);
+  }, temp);
+
+  setTimeout(() => {
     if (!selesai) {
       tampilShape();
     }
-  }, randomWaktu(1000, 2000));
+  }, temp + 500);
 };
+
 var audio = document.getElementById('audio');
 
-selectionFunc = (bentuk) => {
+selectionFunc = (e, bentuk) => {
   audio.pause();
   audio.currentTime = 0;
-  // let temp = [];
   let delay = Date.now() - occurTime;
   audio.play();
   arrJawaban.push(delay);
@@ -79,6 +89,8 @@ selectionFunc = (bentuk) => {
   if (bentuk === 'circle' && berjalan) {
     skorBenar = skorBenar + 1;
     shape.classList.remove(bentuk);
+  } else if (bentuk == null) {
+    skorMiss = skorMiss + 1;
   } else {
     skorSalah = skorSalah + 1;
     shape.classList.remove(bentuk);
@@ -89,13 +101,16 @@ keyboardFunc = (e, bentuk) => {
   let delay = Date.now() - occurTime;
   audio.play();
   arrJawaban.push(delay);
-
-  if (bentuk === 'circle' && e.key === ' ' && berjalan) {
-    skorBenar = skorBenar + 1;
-    shape.classList.remove(bentuk);
-  } else {
-    skorSalah = skorSalah + 1;
-    shape.classList.remove(bentuk);
+  if (e.key === ' ' && berjalan) {
+    if (bentuk === 'circle') {
+      skorBenar = skorBenar + 1;
+      shape.classList.remove(bentuk);
+    } else if (bentuk == null) {
+      skorMiss = skorMiss + 1;
+    } else {
+      skorSalah = skorSalah + 1;
+      shape.classList.remove(bentuk);
+    }
   }
 };
 
@@ -110,6 +125,7 @@ function randomShape() {
 }
 
 function tampilShape() {
+  jmlGambarTampil++;
   // occurTime = Date.now();
   switch (randomShape()) {
     case 0:
@@ -158,8 +174,10 @@ const formAwal = document.forms['form-awal'];
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+  document.querySelector('.loader-container').style.display = 'block';
   fetch(scriptURL, { method: 'POST', body: new FormData(form) })
     .then((response) => {
+      document.querySelector('.loader-container').style.display = 'none';
       if (response.ok) {
         Swal.fire({
           title: 'Success!',
@@ -172,6 +190,7 @@ form.addEventListener('submit', (e) => {
           }
         });
       } else if (!response.ok) {
+        document.body.classList.remove('container-loader');
         Swal.fire({
           title: 'Error!',
           text: 'Data Gagal disubmit',
@@ -198,6 +217,15 @@ btnLanjut.addEventListener('click', function () {
 
   let totalWaktu = valWaktuMenit.value * 60 * 1000;
   HKondisi.value = valKondisi.value;
+  let radios = document.getElementsByName('Mkondisi');
+
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (radios[i].checked) {
+      HKondisi.value = radios[i].value;
+      break;
+    }
+  }
+
   HNama.value = valNama.value;
 
   setTimeout(() => {
@@ -211,7 +239,7 @@ btnLanjut.addEventListener('click', function () {
   }, 4000);
 });
 
-function alert(kondisi, gambar, pesan) {
+function alert(kondisi, gambar = 'img/healthy.png', pesan = 'ok') {
   Swal.fire({
     title: `Anda dalam kondisi ${kondisi}`,
     text: `${pesan}`,
@@ -241,6 +269,8 @@ mulai = (waktu) => {
   skorBenar = 0;
   skorSalah = 0;
   jmlLingkaranTampil = 0;
+  jmlGambarTampil = 0;
+  skorMiss = 0;
   occurTime = 0;
 
   HWaktu.value = waktu / 1000;
@@ -260,64 +290,15 @@ mulai = (waktu) => {
     HSkorBenar.value = skorBenar;
     HSkorSalah.value = skorSalah;
     H850.value = jmlDiatas850;
-    // let totalBenar = parseInt(HSkorBenar.value) - parseInt(HSkorSalah.value);
-    // let persentaseBenar = (totalBenar / jmlLingkaranTampil) * 100;
-    // bugar
-    // if (HKondisi.value === 'bugar') {
-    //   // benar banyak
-    //   if (persentaseBenar >= 70) {
-    //     alert('Bugar', 'healthy', 'Anda dapat melanjutkan aktivitas');
-    //     // benar sedikit
-    //   } else if (persentaseBenar < 70) {
-    //     alert('Letih', 'letih', 'Jaga Kondisi anda');
-    //   } else {
-    //     Swal.fire({
-    //       icon: 'warning',
-    //       title: 'Oops...',
-    //       text: 'Silahkan test ulang!',
-    //       confirmButtonText: 'ulang',
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         window.location.reload();
-    //       }
-    //     });
-    //   }
-    // }
-
-    // letih
-    // else if (HKondisi.value === 'letih') {
-    //   // benar banyak
-    //   if (persentaseBenar >= 70) {
-    //     alert('Bugar', 'healthy', 'Anda masih bisa melanjutkan aktivitas');
-    //     // benar sedikit
-    //   } else if (persentaseBenar < 70) {
-    //     alert('Letih', 'letih', 'Jaga kondisi, anda benar-benar letih');
-    //   } else {
-    //     Swal.fire({
-    //       icon: 'warning',
-    //       title: 'Oops...',
-    //       text: 'Silahkan test ulang!',
-    //       confirmButtonText: 'ulang',
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         window.location.reload();
-    //       }
-    //     });
-    //   }
-    // }
-
-    // durasi lama, benar banyak
-    // durasi lama, benar sedikit
-    // durasi sebentar, benar banyak
-    // durasi sebentar, benar sedikit
+    HSkorMiss.value = skorMiss;
+    HTampil.value = jmlLingkaranTampil;
+    HGambarTampil.value = jmlGambarTampil;
 
     formHasil.style.display = 'flex';
     formHasil.addEventListener('keydown', (e) => {
       if (e.keyCode === 13) {
         e.preventDefault();
         console.log('ok');
-        // Trigger the button element with a click
-        // btnSubmit.click();
       }
     });
   }, waktu);

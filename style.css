@@ -34,7 +34,8 @@ body {
   -moz-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
-  box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
+  min-width: 300px;
+  min-height: 300px;
 }
 
 #btn-submit {
@@ -118,11 +119,14 @@ button {
 
 .circle {
   border-radius: 50%;
-  background-color: red;
+  background-color: rgb(255, 64, 64);
+
+  box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
 }
 
 .square {
   background-color: lightblue;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
 }
 
 .triangle {
@@ -133,11 +137,14 @@ button {
 
 .rectangle {
   background-color: lightpink;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
 }
 
 .oval {
   border-radius: 50%;
   background-color: lightseagreen;
+
+  box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
 }
 
 @media only screen and (min-width: 768px) {
@@ -163,7 +170,7 @@ button {
   }
 
   .oval {
-    width: 300px;
+    width: 400px;
     height: 200px;
   }
 }
@@ -191,7 +198,7 @@ button {
   }
 
   .oval {
-    width: 250px;
+    width: 350px;
     height: 150px;
   }
 }
@@ -796,4 +803,16 @@ input[type='radio'] {
   border: 0px;
   width: 1.3em;
   height: 1.3em;
+}
+
+.loader-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.75) url(/img/loader.gif) no-repeat center center;
+  z-index: 10000;
 }

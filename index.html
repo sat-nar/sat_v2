@@ -16,7 +16,7 @@
     <audio id="audio" src="img/click.wav"></audio>
     <!-- Form Mulai -->
     <!-- -->
-    <div id="shape" class="shape" tabindex="0" onkeyup="keyboardFunc(event,this.classList.item(1))" onclick="selectionFunc(this.classList.item(1))"></div>
+    <div id="shape" class="shape" tabindex="0" onkeyup="keyboardFunc(event,this.classList.item(1))" onclick="selectionFunc(event,this.classList.item(1))"></div>
     <!--  -->
     <div class="big-container">
       <div class="container">
@@ -34,9 +34,11 @@
             <input type="radio" id="kondisi" name="Mkondisi" value="bugar" checked />
             <span class="checkmark"></span>
             <label for="bugar">Bugar</label>
+
             <input type="radio" id="kondisi" name="Mkondisi" value="letih" />
             <span class="checkmark"></span>
             <label for="letih">Letih</label><br />
+
             <i class="far fa-clock"></i>
             <label for="waktu">Waktu Tes : </label>
             <input id="waktuMenit" type="number" min="0" max="20" step="1" value="1" />
@@ -61,20 +63,39 @@
           <form name="submit-to-google-sheet" id="form-hasil">
             <label for="Hnama">Nama</label>
             <input type="text" name="nama" id="Hnama" readonly /><br />
+
             <i class="fas fa-heartbeat"></i>
             <label>Kondisi anda : </label>
             <input type="text" id="Hkondisi" name="kondisi" readonly /><br />
+
             <i class="far fa-clock"></i>
             <label>Waktu (detik) : </label>
             <input type="text" id="HWaktu" name="waktu" readonly /><br />
+
+            <i class="far fa-calendar-alt"></i>
+            <label for="Hgambar-tampil">Jumlah gambar tampil :</label>
+            <input type="text" name="total_gambar_tampil" id="Hgambar-tampil" readonly /><br />
+
+            <i class="far fa-calendar-check"></i>
+            <label for="Htampil">Jumlah lingkaran tampil :</label>
+            <input type="text" name="skor_lingkaran_tampil" id="Htampil" readonly /><br />
+
             <i class="far fa-check-circle"></i>
             <label for="Hskor-berhasil">Skor berhasil :</label>
             <input type="text" name="skor_berhasil" id="Hskor-berhasil" readonly /><br />
+
             <i class="far fa-times-circle"></i>
             <label for="Hskor-gagal">Skor gagal :</label>
             <input type="text" name="skor_gagal" id="Hskor-gagal" readonly /><br />
+
+            <i class="fas fa-greater-than"></i>
             <label for="H850">Jumlah respon diatas 850ms :</label>
-            <input type="text" name="skor_850" id="H850" readonly /><br /><br />
+            <input type="text" name="skor_850" id="H850" readonly /><br />
+
+            <i class="fas fa-cut"></i>
+            <label for="Hskor-miss">Jumlah respon terlewat :</label>
+            <input type="text" name="skor_miss" id="Hskor-miss" readonly /><br /><br />
+
             <button type="submit" id="btn-submit">Submit</button>
           </form>
         </div>
@@ -94,6 +115,18 @@
         <h1>GO</h1>
         <!-- <button id="replay">replay</button> -->
       </div>
+    </div>
+
+    <div class="loader-container">
+      <!-- <div class="loader">
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--text"></div>
+      </div> -->
     </div>
 
     <script src="script.js"></script>
