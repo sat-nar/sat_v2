@@ -69,6 +69,8 @@ pilihShape = (tipe) => {
 var audio = document.getElementById('audio');
 
 selectionFunc = (bentuk) => {
+  audio.pause();
+  audio.currentTime = 0;
   // let temp = [];
   let delay = Date.now() - occurTime;
   audio.play();
